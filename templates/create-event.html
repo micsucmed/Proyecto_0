@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% block activecreateevent %}{% endblock activecreateevent %}
+{% block body %}
+{% if not context %}
+    <h2>You are not registered!</h2>
+    <h3>Log in or Signup to access and create your own events</h3>
+{% else %}
+    Create an Event
+    <div class="container">
+        <form class="mt-5" action="" method="post">
+            {% csrf_token %}
+            <div class="form-group">
+            <label for="event_name">Event Name</label>
+            <input type="text" class="form-control" id="event_name" name="event_name" placeholder="Username">
+            </div>
+
+            <div class="form-group">
+            <label for="event_category">Event category</label>
+            <input type="text" class="form-control" id="event_category" name="event_category" placeholder="Username">
+            </div>
+
+            <div class="form-group">
+            <label for="event_place">Event place</label>
+            <input type="text" class="form-control" id="event_place" name="event_place" placeholder="Username">
+            </div>
+
+            <div class="form-group">
+            <label for="event_address">Event Address</label>
+            <input type="text" class="form-control" id="event_address" name="event_address" placeholder="Username">
+            </div>
+
+            <div class="form-group">
+            <label for="event_initial_date">Event Starting Date</label>
+            <input type="text" class="form-control" id="event_initial_date" name="event_initial_date" placeholder="Username">
+            </div>
+
+            <div class="form-group">
+            <label for="event_final_date">Event Ending date</label>
+            <input type="text" class="form-control" id="event_final_date" name="event_final_date" placeholder="Username">
+            </div>
+
+            <div class="form-group">
+            <label for="event_type">Event Type</label>
+            <input type="text" class="form-control" id="event_type" name="event_type" placeholder="Username">
+            </div>
+
+            <button type="submit" class="btn btn-info">Submit</button>
+        </form>
+    </div>
+{% endif %}
+{% endblock body %}
