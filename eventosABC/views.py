@@ -36,7 +36,7 @@ def api_auth(request):
         answer = response.json()
         global user_token
         user_token = answer['token']
-        return redirect('/home/')
+        return redirect('/')
     return render(request, 'registration/api-auth.html')
 
 def get_events(request):
