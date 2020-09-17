@@ -1,5 +1,18 @@
 {% extends 'base.html' %}
 {% block activehome %}active{% endblock activehome %}
+
+{% block logout %}
+    {% if context %}
+        {{ block.super }}
+    {% endif %}
+{% endblock logout %}
+
+{% block login %}
+    {% if not context %}
+        {{ block.super }}
+    {% endif %}
+{% endblock login %}
+
 {% block body %}
     <h1>Navigate your events!</h1>
 {% if not context %}
@@ -7,7 +20,8 @@
     <h3>Log in or Signup to access and create your own events</h3>
 {% else %}
     {% for event in data %}
-        <h1>{{ event.event_name }}</h1>
+        <br>
+        <h3>{{ event.event_name }}</h3>
         <a class="btn btn-primary" href="/event-detail/{{event.id}}"> Ver Mas </a>
     {% endfor %}
 {% endif %}

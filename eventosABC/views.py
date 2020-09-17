@@ -11,9 +11,18 @@ def home(request):
     '''This is a docstring'''
     return render(request, 'home.html')
 
+def check_token():
+    global user_token
+    token = user_token
+    logedin = False
+    if token:
+        logedin = True
+    return logedin
+
 @csrf_exempt
 def create_user(request):
     '''This is a docstring'''
+    logedin = check_token()
     if request.method == 'POST':
         data = {}
         data['username'] = request.POST['username']
@@ -21,34 +30,38 @@ def create_user(request):
         data['last_name'] = request.POST['last_name']
         data['email'] = request.POST['email']
         data['password'] = request.POST['password']
-        requests.post('http://172.24.98.180:8080/api/create-user/', json=data)
+        requests.post('http://127.0.0.1:8000/api/create-user/', json=data)
 
-    return render(request, 'registration/create-user.html')
+    return render(request, 'registration/create-user.html', {'logedin': logedin})
 
 @csrf_exempt
 def api_auth(request):
     '''This is a docstring'''
+    logedin = check_token()
     if request.method == 'POST':
         data = {}
         data['username'] = request.POST['username']
         data['password'] = request.POST['password']
-        response = requests.post('http://172.24.98.180:8080/api/api-auth/', json=data)
+        response = requests.post('http://127.0.0.1:8000/api/api-auth/', json=data)
         answer = response.json()
         global user_token
         user_token = answer['token']
         return redirect('/')
-    return render(request, 'registration/api-auth.html')
+    return render(request, 'registration/api-auth.html', {'logedin': logedin})
+
+def logout(request):
+    global user_token
+    user_token = None
+
+    return redirect('/')
 
 def get_events(request):
     '''This is a docstring'''
+    logedin = check_token()
     global user_token
     token = user_token
     if request.method == 'GET':
-        if not token:
-            logedin = False
-        else:
-            logedin = True
-        response = requests.get('http://172.24.98.180:8080/api/events/',
+        response = requests.get('http://127.0.0.1:8000/api/events/',
                                 headers={'Content-Type':'application/json',
                                          'Authorization': 'Token {}'.format(token)})
         data = response.json()
@@ -62,10 +75,7 @@ def create_event(request):
     '''This is a docstring'''
     global user_token
     token = user_token
-    if not token:
-        logedin = False
-    else:
-        logedin = True
+    logedin = check_token()
     if request.method == 'POST':
         data = {}
         data['event_name'] = request.POST['event_name']
@@ -75,7 +85,7 @@ def create_event(request):
         data['event_initial_date'] = request.POST['event_initial_date']
         data['event_final_date'] = request.POST['event_final_date']
         data['event_type'] = request.POST['event_type']
-        response = requests.post('http://172.24.98.180:8080/api/events/', json=data,
+        response = requests.post('http://127.0.0.1:8000/api/events/', json=data,
                                  headers={'Content-Type':'application/json',
                                           'Authorization': 'Token {}'.format(token)})
         return redirect('/')
@@ -86,13 +96,13 @@ def event_detail(request, event_id):
     global user_token
     token = user_token
     if request.method == 'GET':
-        response = requests.get('http://172.24.98.180:8080/api/events/'+str(event_id),
+        response = requests.get('http://127.0.0.1:8000/api/events/'+str(event_id),
                                 headers={'Content-Type':'application/json',
                                          'Authorization': 'Token {}'.format(token)})
         data = response.json()
 
     if request.method == 'POST':
-        reponse = requests.delete('http://172.24.98.180:8080/api/events/'+str(event_id),
+        reponse = requests.delete('http://127.0.0.1:8000/api/events/'+str(event_id),
                                   headers={'Content-Type':'application/json',
                                            'Authorization': 'Token {}'.format(token)})
         return redirect('/')
@@ -103,7 +113,7 @@ def event_update(request, event_id):
     global user_token
     token = user_token
     if request.method == 'GET':
-        response = requests.get('http://172.24.98.180:8080/api/events/'+str(event_id),
+        response = requests.get('http://127.0.0.1:8000/api/events/'+str(event_id),
                                 headers={'Content-Type':'application/json',
                                          'Authorization': 'Token {}'.format(token)})
         data = response.json()
@@ -117,7 +127,7 @@ def event_update(request, event_id):
         data['event_initial_date'] = request.POST['event_initial_date']
         data['event_final_date'] = request.POST['event_final_date']
         data['event_type'] = request.POST['event_type']
-        response = requests.put('http://172.24.98.180:8080/api/events/'+str(event_id)+'/',
+        response = requests.put('http://127.0.0.1:8000/api/events/'+str(event_id)+'/',
                                 json=data, headers={'Content-Type':'application/json',
                                                     'Authorization': 'Token {}'.format(token)})
         return redirect('/')

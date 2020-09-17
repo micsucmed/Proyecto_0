@@ -1,5 +1,9 @@
 {% extends 'base.html' %}
 {% block activelogin %}active{% endblock activelogin %}
+{% if logedin %}
+    {% block logout %}
+    {% endblock logout %}
+{% endif %}
 {% block body %}
     <div class="container">
         <form class="mt-5" action="/login/" method="post">

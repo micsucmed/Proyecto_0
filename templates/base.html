@@ -21,15 +21,22 @@
                 <li class="nav-item {% block activehome %}{% endblock activehome %}">
                     <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
                 </li>
-                <li class="nav-item {% block activecreateevent %}{% endblock activecreateevent %}">
-                    <a class="nav-link" href="/create-event/">Create Event</a>
-                </li>
+                {% block login %}
                 <li class="nav-item {% block activelogin %}{% endblock activelogin %}">
                     <a class="nav-link" href="/login/">Login</a>
                 </li>
                 <li class="nav-item {% block activesignup %}{% endblock activesignup %}">
                     <a class="nav-link" href="/signup/">Signup</a>
                 </li>
+                {% endblock login %}
+                {% block logout %}
+                <li class="nav-item {% block activecreateevent %}{% endblock activecreateevent %}">
+                    <a class="nav-link" href="/create-event/">Create Event</a>
+                </li>
+                <li class="nav-item">
+                    <a class="btn btn-primary" href="/logout/">Logout</a>
+                </li>
+                {% endblock logout %}
             </ul>
         </div>
     </nav>
