@@ -65,7 +65,8 @@ def get_events(request):
                                 headers={'Content-Type':'application/json',
                                          'Authorization': 'Token {}'.format(token)})
         data = response.json()
-    return render(request, 'home.html', {'data': data, 'context': logedin})
+        return render(request, 'home.html', {'data': data, 'context': logedin})
+    return render(request, 'home.html')
 
 # def get_base64_encoded_image(image_path):
 #     with open(image_path, "rb") as img_file:
