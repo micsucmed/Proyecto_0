@@ -40,7 +40,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'rest_framework.authtoken',
-    'bootstrap3',
 ]
 
 BOOTSTRAP3 = {'include_jquery': True}
