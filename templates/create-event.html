@@ -5,7 +5,7 @@
 {% block logout %}{{ block.super }}{% endblock logout %}
 {% block login %}{% endblock login %}
 
-{% block body %}
+{% block startbody %}
 {% if not context %}
     <h2>You are not registered!</h2>
     <h3>Log in or Signup to access and create your own events</h3>
@@ -53,4 +53,4 @@
         </form>
     </div>
 {% endif %}
-{% endblock body %}
+{% endblock startbody %}

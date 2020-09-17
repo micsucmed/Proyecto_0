@@ -4,7 +4,7 @@
     {% block logout %}
     {% endblock logout %}
 {% endif %}
-{% block body %}
+{% block startbody %}
     <div class="container">
         <form class="mt-5" action="/login/" method="post">
             {% csrf_token %}
@@ -21,6 +21,6 @@
             <button type="submit" class="btn btn-info">Submit</button>
         </form>
     </div>
-{% endblock body %}
+{% endblock startbody %}
 
 
