@@ -60,7 +60,7 @@ def get_events(request):
     logedin = check_token()
     global user_token
     token = user_token
-    if request.method == 'GET':
+    if request.method == 'GET' and token is not None:
         response = requests.get('http://172.24.98.180:8080/api/events/',
                                 headers={'Content-Type':'application/json',
                                          'Authorization': 'Token {}'.format(token)})
