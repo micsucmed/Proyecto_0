@@ -42,8 +42,6 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
 ]
 
-BOOTSTRAP3 = {'include_jquery': True}
-
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.TokenAuthentication',
